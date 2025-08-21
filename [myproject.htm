@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>نظام تنبؤي لتكيس المبايض</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 450px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 95%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #result {
+            font-size: 22px;
+            font-weight: bold;
+            padding: 10px;
+            width: 450px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>نظام تنبؤي لتكيس المبايض</h1>
+
+    <form id="predictForm">
+        <label>العمر:</label>
+        <input type="number" id="age" required>
+
+        <label>الوزن (كجم):</label>
+        <input type="number" id="weight" required>
+
+        <label>التوتر العصبي:</label>
+        <select id="stress">
+            <option value="0">لا</option>
+            <option value="1">نعم</option>
+        </select>
+
+        <label>هرمون FRnsh:</label>
+        <select id="frnsh">
+            <option value="0">0</option>
+            <option value="1">1</option>
+        </select>
+
+        <label>هرمون Lnshr:</label>
+        <select id="lnshr">
+            <option value="0">0</option>
+            <option value="1">1</option>
+        </select>
+
+        <button type="button" onclick="predict()">تنبؤ</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function predict() {
+            let age = parseInt(document.getElementById('age').value);
+            let weight = parseInt(document.getElementById('weight').value);
+            let stress = parseInt(document.getElementById('stress').value);
+            let frnsh = parseInt(document.getElementById('frnsh').value);
+            let lnshr = parseInt(document.getElementById('lnshr').value);
+
+            // نموذج أولي تجريبي لحساب "مستوى الخطر"
+            let score = 0;
+            if(age > 25) score += 1;
+            if(weight > 70) score += 1;
+            if(stress === 1) score += 1;
+            if(frnsh === 1) score += 1;
+            if(lnshr === 1) score += 1;
+
+            let resultText = "";
+            let color = "";
+
+            if(score <= 1) {
+                resultText = "مؤشر الخطر: منخفض";
+                color = "#4CAF50"; // أخضر
+            } else if(score <= 3) {
+                resultText = "مؤشر الخطر: متوسط";
+                color = "#FFC107"; // أصفر
+            } else {
+                resultText = "مؤشر الخطر: مرتفع";
+                color = "#F44336"; // أحمر
+            }
+
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerText = resultText;
+            resultDiv.style.backgroundColor = color;
+            resultDiv.style.color = "white";
+        }
+    </script>
+</body>
+</html>
